@@ -1,1 +1,95 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+.page-title {
+  color: #5a7c8c;
+  text-transform: capitalize;
+  padding: 20px;
+  margin: 15px 0;
+  text-align: center;
+  font-size: 3.2rem;
+}
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ctrl-label {
+  display: inline-block;
+  color: #455a64;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 5px;
+  font-size: 1.6rem;
+}
+.form-row {
+  input {
+    font-size: 2rem;
+    padding: 5px;
+    border-radius: 5px;
+  }
+}
+
+.select-block {
+  select,
+  option {
+    font-size: 2rem;
+    padding: 5px;
+    min-width: 170px;
+  }
+  select {
+    border-radius: 5px;
+  }
+}
+.select-label {
+  margin-right: 15px;
+}
+
+.radio-group {
+  margin-bottom: 10px;
+  label {
+    display: inline-block;
+    padding: 5px;
+    padding-right: 10px;
+    margin-right: 15px;
+    font-size: 2rem;
+    text-transform: capitalize;
+  }
+  input {
+    margin-right: 5px;
+  }
+}
+.error-msg {
+  color: #f23224;
+  font-size: 1.6rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+/* Loading state */
+.error-block,
+.info-block,
+.loading-block {
+  max-width: 500px;
+  padding: 20px;
+  margin: 15px auto;
+  text-align: center;
+  font-size: 2rem;
+}
+.error-block {
+  color: #f44336;
+}
+
+.loading-block {
+  color: #0bab9c;
+}

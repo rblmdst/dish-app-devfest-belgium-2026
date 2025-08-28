@@ -1,0 +1,10 @@
+<h1 class="page-title">Update dish # {{ dishId }}</h1>
+@if (errorMsg) {
+  <div class="error-block">{{ errorMsg }}</div>
+}
+@if (isLoading) {
+  <div class="loading-block">⏳ Loading...</div>
+}
+<div class="content-wrapper">
+  <app-dish-form (editDish)="onEditDish($event)" [dish]="dish" [categories]="categories" />
+</div>

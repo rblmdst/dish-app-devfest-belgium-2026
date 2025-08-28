@@ -1,0 +1,26 @@
+@let dishes = (dishes$ | async) || [];
+<h1 class="page-title">{{ title }}</h1>
+
+<div class="search-form-container">
+  <label for="search-input">Search</label>
+  <input autocomplete="off" [formControl]="searchInput" id="search-input" type="text" />
+</div>
+
+<div class="content-wrapper">
+  @if (loading) {
+    <div class="loading-block">⏳ Loading...</div>
+  } @else {
+    @if (hasError) {
+      <div class="error-block">{{ errorMessage }}</div>
+    } @else {
+      <div class="dish-list">
+        @for (dish of dishes; track dish.id) {
+          <app-dish-card (delete)="onDeleteDish($event)" [dish]="dish" />
+        }
+      </div>
+      @if (!dishes.length) {
+        <div class="info-block">No dishes found that match the search.</div>
+      }
+    }
+  }
+</div>

@@ -1,0 +1,68 @@
+<!-- Form -->
+<form autocomplete="off" [formGroup]="form" novalidate class="form">
+  <!-- Name -->
+
+  <div class="form-row">
+    <label class="ctrl-label" for="name">Name :</label>
+    <input formControlName="name" form id="name" type="text" />
+  </div>
+  @let nameCtrl = form.get('name');
+  @if (nameCtrl?.errors && nameCtrl?.touched) {
+    <div class="error-msg">
+      @if (nameCtrl?.hasError('required')) {
+        <p>The name is required</p>
+      }
+      @if (nameCtrl?.hasError('maxlength')) {
+        <p>The name max length is 30 characters</p>
+      }
+    </div>
+  }
+  <!-- Category -->
+
+  <div class="form-row select-block">
+    <label class="ctrl-label select-label" for="category">Category :</label>
+    <select formControlName="category" id="category">
+      @for (category of categories(); track category) {
+        <option [value]="category">{{ category }}</option>
+      }
+    </select>
+  </div>
+  @let categoryCtrl = form.get('category');
+  @if (categoryCtrl?.errors && categoryCtrl?.touched) {
+    <div class="error-msg">
+      @if (categoryCtrl?.hasError('required')) {
+        <p>The category is required</p>
+      }
+    </div>
+  }
+  <!-- Price -->
+
+  <div class="form-row">
+    <label class="ctrl-label" for="price">Price :</label>
+    <input formControlName="price" form id="price" type="number" />
+  </div>
+  @let priceCtrl = form.get('price');
+  @if (priceCtrl?.errors && priceCtrl?.touched) {
+    <div class="error-msg">
+      @if (priceCtrl?.hasError('required')) {
+        <p>The price is required</p>
+      }
+    </div>
+  }
+  <!-- available -->
+  <div class="filter">
+    <div class="ctrl-label radio-group-label">Availability :</div>
+    <div class="radio-group">
+      <label>
+        <input formControlName="available" [value]="false" type="radio" />Not available </label
+      ><label> <input formControlName="available" [value]="true" type="radio" />Available </label>
+    </div>
+  </div>
+  <!-- actions buttons -->
+  <div class="form-buttons">
+    <button (click)="onSubmit()" [disabled]="form.invalid" type="submit">
+      {{ isEdit ? 'Save' : 'Add' }}
+    </button>
+    <button type="reset">Reset</button>
+  </div>
+</form>

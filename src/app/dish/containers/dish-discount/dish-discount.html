@@ -1,0 +1,35 @@
+<h1 class="page-title">Discounts check</h1>
+<div class="content-wrapper">
+  <div class="ctrl-blocks-wrapper">
+    <div class="dish-block">
+      <div class="select-block">
+        <label class="ctrl-label select-label" for="dish-ctrl">Dish: </label>
+        <select [(ngModel)]="selectedDishId" id="dish-ctrl" name="dish">
+          @for (dish of dishes(); track dish.id) {
+            <option [value]="dish.id">{{ dish.name }}</option>
+          }
+        </select>
+      </div>
+    </div>
+    <div class="unit-price-block">
+      <label class="ctrl-label" for="category-ctrl">Unit price : </label>
+      <div class="unit-price">{{ selectedDishUnitPrice() }} €</div>
+    </div>
+    <div class="qty-block">
+      <label class="ctrl-label">Quantity : </label>
+      <div class="counter-action-btns-block">
+        <span class="qty">{{ quantity() }}</span>
+        <button (click)="decrementQuantity()">-</button>
+        <button (click)="incrementQuantity()">+</button>
+      </div>
+    </div>
+    <div class="discount-block">
+      <label class="ctrl-label select-label">Discount : </label>
+      <div class="discount">{{ selectedDishDiscount() }} €</div>
+    </div>
+    <div class="total-block ctrl-block">
+      <label class="ctrl-label select-label">Total : </label>
+      <div class="total-price">{{ total() }} €</div>
+    </div>
+  </div>
+</div>

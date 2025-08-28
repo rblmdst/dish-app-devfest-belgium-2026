@@ -1,0 +1,21 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  background-color: #5a7c8c;
+  li {
+    list-style: none;
+    padding: 20px 10px;
+    a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 2rem;
+      &:hover,
+      &.active {
+        text-decoration: underline;
+        text-underline-offset: 8px;
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+}
