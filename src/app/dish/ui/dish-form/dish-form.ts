@@ -46,7 +46,7 @@ export class DishForm implements OnChanges {
       this.isEdit = true;
       const dish = this.dish();
       if (dish) {
-        this.form.setValue(dish);
+        this.form.patchValue(dish);
       } else {
         this.form.reset();
       }

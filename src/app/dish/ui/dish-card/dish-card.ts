@@ -13,7 +13,7 @@ export class DishCard {
 
   protected onDelete(dish: Dish) {
     const userConfirmedDelete = confirm(
-      `Do you really want to delete the dish${dish.name} ?`
+      `Do you really want to delete the dish "${dish.name}" ?`
     );
 
     if (userConfirmedDelete) {

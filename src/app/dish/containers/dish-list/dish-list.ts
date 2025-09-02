@@ -17,23 +17,27 @@ export class DishList {
 
   protected dishApiService = inject(DishApi);
 
-  protected searchInput = new FormControl<string | null> (null);
+  protected searchInput = new FormControl<string | null>(null);
 
   protected loading = false;
   protected hasError = false;
-  protected errorMessage = "An error occurred while loading data.";
+  protected errorMessage = 'An error occurred while loading data.';
 
-  protected dishes$ = this.searchInput.valueChanges.pipe(
+  private searchInputChanged$ = this.searchInput.valueChanges.pipe(
     debounceTime(300),
     takeUntilDestroyed(),
     startWith(null),
+  );
+
+  // TODO: implement the search feature using rxResource
+  protected dishes$ = this.searchInputChanged$.pipe(
     switchMap((searchValue) => {
       this.loading = true;
       this.hasError = false;
       return this.dishApiService.getDishes(searchValue).pipe(
         catchError((error) => {
           // do something with the error
-          console.error(error)
+          console.error(error);
           this.hasError = true;
           return of([]);
         }),
@@ -44,5 +48,9 @@ export class DishList {
     }),
   );
 
-  protected onDeleteDish(dishId: number) {}
+  protected onDeleteDish(dishId: number) {
+    this.dishApiService.deleteDish(dishId).subscribe(()=> {
+      // TODO: refresh the list after deleting a dish 
+    })
+  }
 }
