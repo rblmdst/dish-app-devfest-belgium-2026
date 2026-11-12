@@ -4,7 +4,6 @@ import {
   inject,
   input,
   numberAttribute,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CATEGORIES } from '../../../const';
 import { DishApi } from '../../services/dish-api';
@@ -17,7 +16,6 @@ import { rxResource } from '@angular/core/rxjs-interop';
   selector: 'app-dish-edit',
   imports: [DishForm],
   templateUrl: './dish-edit.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-edit.scss',
 })
 export class DishEdit {

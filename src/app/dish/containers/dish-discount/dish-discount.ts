@@ -1,4 +1,4 @@
-import { Component, computed, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Dish } from '../../models/dish.model';
 import { httpResource } from '@angular/common/http';
@@ -23,7 +23,6 @@ const getDishDiscountAmount = (dish: Dish, quantity: number) => {
   selector: 'app-dish-discount',
   imports: [FormsModule],
   templateUrl: './dish-discount.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-discount.scss',
 })
 export class DishDiscount {
