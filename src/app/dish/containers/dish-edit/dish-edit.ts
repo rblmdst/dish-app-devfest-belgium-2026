@@ -1,4 +1,11 @@
-import { Component, computed, inject, input, numberAttribute } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  numberAttribute,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CATEGORIES } from '../../../const';
 import { DishApi } from '../../services/dish-api';
 import { Dish } from '../../models/dish.model';
@@ -10,6 +17,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
   selector: 'app-dish-edit',
   imports: [DishForm],
   templateUrl: './dish-edit.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-edit.scss',
 })
 export class DishEdit {
@@ -19,8 +27,8 @@ export class DishEdit {
   protected readonly categories = CATEGORIES;
   protected readonly dishId = input.required({ transform: numberAttribute });
   protected readonly errorMsg = 'An error occurred while loading data.';
- 
-  // TODO: instead of rxResource use httpResource to fetch the Dish 
+
+  // TODO: instead of rxResource use httpResource to fetch the Dish
   protected dishRx = rxResource({
     params: () => this.dishId(),
     stream: ({ params: dishId }) => this.dishApiService.getDish(dishId),

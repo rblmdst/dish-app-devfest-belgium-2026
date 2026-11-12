@@ -5,6 +5,7 @@ import {
   OnChanges,
   output,
   SimpleChanges,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Dish } from '../../models/dish.model';
@@ -21,6 +22,7 @@ export type EditDishData = {
   selector: 'app-dish-form',
   imports: [ReactiveFormsModule],
   templateUrl: './dish-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-form.scss',
 })
 export class DishForm implements OnChanges {

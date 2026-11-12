@@ -1,10 +1,11 @@
-import { Component, output, input } from '@angular/core';
+import { Component, output, input, ChangeDetectionStrategy } from '@angular/core';
 import { Dish } from '../../models/dish.model';
 import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-dish-card',
   imports: [RouterLink],
   templateUrl: './dish-card.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-card.scss',
 })
 export class DishCard {
@@ -12,9 +13,7 @@ export class DishCard {
   readonly delete = output<number>();
 
   protected onDelete(dish: Dish) {
-    const userConfirmedDelete = confirm(
-      `Do you really want to delete the dish "${dish.name}" ?`
-    );
+    const userConfirmedDelete = confirm(`Do you really want to delete the dish "${dish.name}" ?`);
 
     if (userConfirmedDelete) {
       this.delete.emit(dish.id);

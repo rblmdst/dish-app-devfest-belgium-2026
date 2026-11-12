@@ -1,4 +1,4 @@
-import { Component,inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DishApi } from '../../services/dish-api';
 import { AsyncPipe } from '@angular/common';
 import { catchError, debounceTime, finalize, of, startWith, switchMap } from 'rxjs';
@@ -10,6 +10,7 @@ import { DishCard } from '../../ui/dish-card/dish-card';
   selector: 'app-dish-list',
   imports: [DishCard, AsyncPipe, ReactiveFormsModule],
   templateUrl: './dish-list.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-list.scss',
 })
 export class DishList {
@@ -49,8 +50,8 @@ export class DishList {
   );
 
   protected onDeleteDish(dishId: number) {
-    this.dishApiService.deleteDish(dishId).subscribe(()=> {
-      // TODO: refresh the list after deleting a dish 
-    })
+    this.dishApiService.deleteDish(dishId).subscribe(() => {
+      // TODO: refresh the list after deleting a dish
+    });
   }
 }
