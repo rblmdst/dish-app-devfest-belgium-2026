@@ -1,6 +1,9 @@
 # Angular
 
-version 20.2.0.
+version 22.2.6.
+
+# Node.Js
+version  ^22.22.3 || ^24.15.0 || >=26.0.0
 
 ## Development server
 

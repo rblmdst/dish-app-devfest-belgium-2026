@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-20": {
+    "dish-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -61,10 +61,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ng-20:build:production"
+              "buildTarget": "dish-app:build:production"
             },
             "development": {
-              "buildTarget": "ng-20:build:development"
+              "buildTarget": "dish-app:build:development"
             }
           },
           "defaultConfiguration": "development"
