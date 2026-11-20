@@ -6,11 +6,13 @@ import {
   numberAttribute,
 } from '@angular/core';
 import { CATEGORIES } from '../../../const';
-import { DishApi } from '../../services/dish-api';
+import { DISH_API_BASE_URL, DishApi } from '../../services/dish-api';
 import { Dish } from '../../models/dish.model';
 import { Router } from '@angular/router';
 import { DishForm } from '../../ui/dish-form/dish-form';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { httpResource } from '@angular/common/http';
+import { DishDto } from '../../models/dtos/dish.model';
 
 @Component({
   selector: 'app-dish-edit',
@@ -27,10 +29,12 @@ export class DishEdit {
   protected readonly errorMsg = 'An error occurred while loading data.';
 
   // TODO: instead of rxResource use httpResource to fetch the Dish
-  protected dishRx = rxResource({
+  /* protected dishRx = rxResource({
     params: () => this.dishId(),
     stream: ({ params: dishId }) => this.dishApiService.getDish(dishId),
-  });
+  }); */
+
+  protected dishRx = httpResource<null|DishDto>(()=> `${DISH_API_BASE_URL}/${this.dishId()}`, {defaultValue: null}  )
 
   protected onEditDish(dish: Dish) {
     this.dishApiService.updateDish(dish.id, dish).subscribe({
