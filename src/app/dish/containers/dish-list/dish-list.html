@@ -1,5 +1,9 @@
-@let dishes = (dishes$ | async) || [];
+<!-- @let dishes = (dishes$ | async) || []; -->
 <h1 class="page-title">{{ title }}</h1>
+
+<h1 class="page-title">{{ searchValue() }}</h1>
+
+
 
 <div class="search-form-container">
   <label for="search-input">Search</label>
@@ -7,19 +11,22 @@
 </div>
 
 <div class="content-wrapper">
-  @if (loading) {
+  @if (dishesRx.isLoading()) {
     <div class="loading-block">⏳ Loading...</div>
   } @else {
-    @if (hasError) {
+    @if (dishesRx.error()) {
       <div class="error-block">{{ errorMessage }}</div>
     } @else {
-      <div class="dish-list">
-        @for (dish of dishes; track dish.id) {
-          <app-dish-card (delete)="onDeleteDish($event)" [dish]="dish" />
+      @if(dishesRx.hasValue()) {
+        @let dishes = dishesRx.value();
+        <div class="dish-list">
+          @for (dish of dishes; track dish.id) {
+            <app-dish-card (delete)="onDeleteDish($event)" [dish]="dish" />
+          }
+        </div>
+        @if (!dishes.length) {
+          <div class="info-block">No dishes found that match the search.</div>
         }
-      </div>
-      @if (!dishes.length) {
-        <div class="info-block">No dishes found that match the search.</div>
       }
     }
   }

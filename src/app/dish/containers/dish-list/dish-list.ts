@@ -3,12 +3,12 @@ import { DishApi } from '../../services/dish-api';
 import { AsyncPipe } from '@angular/common';
 import { catchError, debounceTime, finalize, of, startWith, switchMap } from 'rxjs';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { rxResource, takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { DishCard } from '../../ui/dish-card/dish-card';
 
 @Component({
   selector: 'app-dish-list',
-  imports: [DishCard, AsyncPipe, ReactiveFormsModule],
+  imports: [DishCard, ReactiveFormsModule],
   templateUrl: './dish-list.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './dish-list.scss',
@@ -30,8 +30,10 @@ export class DishList {
     startWith(null),
   );
 
+  private searchValue = toSignal(this.searchInputChanged$);
+
   // TODO: implement the search feature using rxResource
-  protected dishes$ = this.searchInputChanged$.pipe(
+  /* protected dishes$ = this.searchInputChanged$.pipe(
     switchMap((searchValue) => {
       this.loading = true;
       this.hasError = false;
@@ -47,7 +49,15 @@ export class DishList {
         }),
       );
     }),
-  );
+  ); */
+
+  protected dishesRx = rxResource({
+    defaultValue: [],
+    params: () => this.searchValue(),
+    stream: ({params: searchValue})=> this.dishApiService.getDishes(searchValue)
+  })
+
+
 
   protected onDeleteDish(dishId: number) {
     this.dishApiService.deleteDish(dishId).subscribe(() => {
