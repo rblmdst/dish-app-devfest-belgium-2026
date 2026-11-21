@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, linkedSignal, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Dish } from '../../models/dish.model';
 import { httpResource } from '@angular/common/http';
@@ -37,20 +37,32 @@ export class DishDiscount {
   });
 
   // TODO: Update the unit price when the selected dish changed
-  protected selectedDishUnitPrice = signal(0);
+  protected selectedDishUnitPrice = computed(()=> {
+    const dish = this.selectedDish()
+    return dish ? dish.price : 0
+  });
 
-  protected quantity = signal(0);
+  protected quantity = linkedSignal<number>(()=> {
+    const dishId = this.selectedDishId();
+    return dishId ? 1 : 0;
+  });
 
   // TODO: Update the discount when there is
   // a discount concerning the selected dish.
   // HINT : use the function
   // getDishDiscountAmount(dish, quantity)
-  protected selectedDishDiscount = signal(0);
+  protected selectedDishDiscount = computed(()=> {
+     const dish = this.selectedDish()
+    return dish ? getDishDiscountAmount(dish, this.quantity()) : 0
+  });
 
   // TODO: Update the total price based on the unit price
   // the quantity and the discount applied if any
   // HINT : total = (unitPrice * quantity )- discountAmount
-  protected total = signal(0);
+  protected total = computed(()=> {
+    const total = (this.selectedDishUnitPrice() * this.quantity() )- this.selectedDishDiscount()
+    return total;
+  });
 
   // TODO: When the selected dish changed
   // reset the value of the quantity to 1 :)
